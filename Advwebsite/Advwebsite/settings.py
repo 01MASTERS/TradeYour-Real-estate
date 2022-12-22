@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'chatapp.apps.ChatappConfig',
     'pages.apps.PagesConfig',
     'listings.apps.ListingsConfig',
     'accounts.apps.AccountsConfig',
@@ -81,11 +82,11 @@ WSGI_APPLICATION = 'Advwebsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'btredb',
-        'USER': 'postgres',
-        'PASSWORD':'sudeep2003',
-        'HOST':'localhost'
+        # 'USER': 'postgres',
+        # 'PASSWORD':'sudeep2003',
+        # 'HOST':'localhost'
     }
 }
 

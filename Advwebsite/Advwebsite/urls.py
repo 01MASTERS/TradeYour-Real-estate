@@ -1,4 +1,4 @@
-"""Advwebsite URL Configuration
+"""Advwebsite URL Configuration cd
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls'), name='pages'),
     path('listings/', include('listings.urls'), name='listings'),
+    path('chatapp/', include('chatapp.urls'), name='chatapp'),
     path('contacts/', include('contacts.urls'), name='contacts'),
     path('accounts/', include('accounts.urls'), name='accounts'),
     path('realtors/', include('realtors.urls'), name='realtors'),
