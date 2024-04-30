@@ -3,6 +3,8 @@ from django.contrib import messages,auth
 from django.contrib.auth.models import User
 from contacts.models import Contacts
 from realtors.models import Realtor
+from listings.models import Listing
+from .choices import price_choices, bedroom_choices , bathroom_choices, city_choices, state_choices
 
 def register(request):
     if request.method=='POST':
@@ -14,7 +16,7 @@ def register(request):
         name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
-        photo = request.POST['photo']
+        photo = request.FILES.get('photo')
 
 
         if password==password2:
@@ -49,7 +51,7 @@ def login(request):
         if user is not None :
             auth.login(request , user )
             messages.success(request, 'You are succesfully logged in')
-            return redirect('accounts:dashboard')
+            return redirect('realtors:dashboard')
         else:
             messages.error(request, 'User does not exist')
             return redirect('accounts:login')
@@ -60,9 +62,46 @@ def login(request):
 def logout(request):
       messages.success(request, 'You have successfully logged out')
       auth.logout(request)
-      return redirect('pages:index2')
+      return redirect('pages:choice')
 
 def dashboard(request):
-    contacts = Contacts.objects.filter(user_id=request.user.id)
-    contt={'contacts' : contacts}
+    realtor = request.user
+    listings = Listing.objects.filter(realtor=realtor)
+    contt={'listings' : listings}
     return render(request, "realtors/dashboard.html", contt)
+
+# realtor, title, address, city, state, zipcode, description, price, bedrooms, bathrooms, garage, sqft, lot_size, photo_main, photo_1, photo_2, list_date, is_published
+def list(request):
+    if request.method=='POST':
+        realtor = request.user
+        title = request.POST['title']
+        address = request.POST['address']
+        city = request.POST['city']
+        state = request.POST['state']
+        zipcode = request.POST['zipcode']
+        description = request.POST['description']
+        price = request.POST['price']
+        bedrooms = request.POST['bedrooms']
+        bathrooms = request.POST['bathrooms']
+        garage = request.POST['garage']
+        sqft = request.POST['sqft']
+        lot_size = request.POST['lot_size']
+        photo_main = request.FILES.get('photo_main')
+        photo_1 = request.FILES.get('photo_1')
+        photo_2 = request.FILES.get('photo_2')
+               
+        listing = Listing.objects.create(realtor = realtor, title=title, address = address , city = city,
+                                state = state, zipcode = zipcode, description = description, price = price,
+                                bedrooms = bedrooms, bathrooms = bathrooms, garage = garage, sqft = sqft, lot_size = lot_size,
+                                photo_main = photo_main, photo_1 = photo_1, photo_2 = photo_2)
+        listing.save()
+        messages.success(request, 'You have successfully listed a listing')
+        return redirect('realtors:dashboard')
+
+    else:
+        contt={
+           'bedroom_choices':bedroom_choices,
+           'bathroom_choices': bathroom_choices,
+           'city_choices': city_choices,
+           'state_choices': state_choices}
+        return render(request, 'realtors/list.html', contt)

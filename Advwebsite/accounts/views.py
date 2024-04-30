@@ -57,7 +57,7 @@ def login(request):
 def logout(request):
       messages.success(request, 'You have successfully logged out')
       auth.logout(request)
-      return redirect('pages:index')
+      return redirect('pages:choice')
 
 def dashboard(request):
     contacts = Contacts.objects.filter(user_id=request.user.id)

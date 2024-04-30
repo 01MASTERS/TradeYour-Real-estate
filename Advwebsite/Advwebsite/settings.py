@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'chatapp.apps.ChatappConfig',
     'pages.apps.PagesConfig',
     'listings.apps.ListingsConfig',
     'accounts.apps.AccountsConfig',
@@ -146,3 +145,8 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS ={
     messages.ERROR:'danger'
 }
+
+AUTHENTICATION_BACKENDS = [
+    'Advwebsite.backends.CustomUserBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
