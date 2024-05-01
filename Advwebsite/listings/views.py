@@ -11,6 +11,12 @@ def listing(request, listing_id):
     listing=get_object_or_404(Listing, pk=listing_id)
     contt={'listing':listing}
     return render(request, 'listings/listing.html', contt)
+
+def listing_for_realtor(request, listing_id):
+    listing=get_object_or_404(Listing, pk=listing_id)
+    contt={'listing':listing}
+    return render(request, 'listings/listing_for_realtor.html', contt)
+
 def search(request):
     query_list = Listing.objects.order_by('-list_date')
     #Keywords

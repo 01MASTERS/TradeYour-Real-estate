@@ -47,12 +47,12 @@
             </thead>
             <tbody>
 
-            {% for contact in listings %}
+            {% for listing in listings %}
               <tr>
-                <td>{{ contact.id }}</td>
-                <td>{{ contact.title }}</td>
+                <td>{{ listing.id }}</td>
+                <td>{{ listing.title }}</td>
                 <td>
-                  <a class="btn btn-light" href="{% url 'listings:listing' contact.id %}">View Listing</a>
+                  <a class="btn btn-light" href="{% url 'listings:listing_for_realtor' listing.id %}">View Listing</a>
                 </td>
               </tr>
 
